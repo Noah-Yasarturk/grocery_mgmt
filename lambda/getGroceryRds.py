@@ -3,7 +3,7 @@ This code will enable us to run SQL queries to our RDS instance.
 
 Format:
 {
-    "query": "sql_query"
+    "query": "sql query"
 }
 '''
 import json
