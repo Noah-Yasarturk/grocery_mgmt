@@ -1,0 +1,9 @@
+CREATE TABLE GROCERY_TRIP (
+    TRIP_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    STORE_ID int,
+    TRIP_DATE datetime,
+    CREATED_AT datetime,
+    UPDATED_AT datetime
+
+
+); 

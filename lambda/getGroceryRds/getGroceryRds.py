@@ -3,6 +3,7 @@ import os
 import pymysql 
 import logging
 import sys
+import pandas as pd
 
 
 logger = logging.getLogger()
@@ -21,14 +22,17 @@ def lambda_handler(event, context):
     query = event['query']
     first_word = query.split()[0].upper().strip()
     results = []
-    with connect_to_rds().cursor() as cursor:
+    conn = connect_to_rds()
+    with conn.cursor() as cursor:
 
         # Execute query
         logger.info(f"Executing query: {query}")
         cursor.execute(query)
         # Handle SELECTs
         if first_word == 'SELECT':
-            results = cursor.fetchall()
+            df = pd.read_sql(query, conn)
+            results = df.to_json(orient='records')
+
         # Handle CREATEs
         elif first_word == 'CREATE':
             results = cursor.rowcount
@@ -40,7 +44,7 @@ def lambda_handler(event, context):
                 'statusCode': 400,
                 'rds_response': 'INVALID_QUERY'
             }
-
+    conn.commit()
     return  {
             'statusCode': 200,
             'rds_response': results

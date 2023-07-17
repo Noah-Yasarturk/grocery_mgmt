@@ -1,0 +1,9 @@
+CREATE TABLE STORE (
+    STORE_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    STORE_NAME varchar(100),
+    LOC varchar(100),
+    CREATED_AT datetime,
+    UPDATED_AT datetime
+
+
+); 
