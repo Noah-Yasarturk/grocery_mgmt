@@ -1,4 +1,16 @@
-import json
+'''
+Run request to database
+
+Args:
+{"query": "SQL"}
+
+
+Return:
+{
+    'statusCode': 200,
+    'rds_response': results
+}
+'''
 import os
 import pymysql 
 import logging
@@ -12,8 +24,8 @@ logger = logging.getLogger()
 def lambda_handler(event, context):
 
     # Handle event
-    logger.info(f"Context: {context}")
-    logger.info(f"Event received: {event}")
+    print(f"Context: {context}")
+    print(f"Event received: {event}")
     resp =  validate_params(event)
     if 'statusCode' in resp.keys():
         return resp
@@ -26,7 +38,7 @@ def lambda_handler(event, context):
     with conn.cursor() as cursor:
 
         # Execute query
-        logger.info(f"Executing query: {query}")
+        print(f"Executing query: {query}")
         cursor.execute(query)
         # Handle SELECTs
         if first_word == 'SELECT':
@@ -37,9 +49,13 @@ def lambda_handler(event, context):
         elif first_word == 'CREATE':
             results = cursor.rowcount
 
+        # Handle INSERTs
+        elif first_word == 'INSERT':
+            results = cursor.rowcount
+
         # Handle unaccepted query types
         else:
-            logger.error(f"Unacceptable query type: {first_word}")
+            print(f"Unacceptable query type: {first_word}")
             return {
                 'statusCode': 400,
                 'rds_response': 'INVALID_QUERY'
@@ -73,8 +89,8 @@ def connect_to_rds():
     try:
         conn = pymysql.connect(host=rds_host, user=user_name, passwd=password, database=db_name, connect_timeout=5)
     except pymysql.MySQLError as e:
-        logger.error("ERROR: Unexpected error: Could not connect to MySQL instance.")
-        logger.error(e)
+        print("ERROR: Unexpected error: Could not connect to MySQL instance.")
+        print(e)
         sys.exit()
-    logger.info("SUCCESS: Connection to RDS MySQL instance succeeded")
+    print("SUCCESS: Connection to RDS MySQL instance succeeded")
     return conn
