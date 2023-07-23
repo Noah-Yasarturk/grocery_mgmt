@@ -19,13 +19,17 @@ import {MatNativeDateModule} from '@angular/material/core';
 // Custom 
 import { NewTripComponent } from './new-trip/new-trip.component';
 import { PersistentToolbarComponent } from './persistent-toolbar/persistent-toolbar.component';
+import { HomeComponent } from './home/home.component';
+import { ReceiptItemEntryComponent } from './receipt-item-entry/receipt-item-entry.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NewTripComponent,
-    PersistentToolbarComponent
+    PersistentToolbarComponent,
+    HomeComponent,
+    ReceiptItemEntryComponent
   ],
   imports: [
     BrowserModule,
