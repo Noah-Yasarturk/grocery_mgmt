@@ -1,1 +1,12 @@
-<p>new-trip works!</p>
+
+<div id="store-select">
+    <mat-form-field id="store-select-dropdown-form">
+        <mat-label>Select Store</mat-label>
+
+        <mat-select [(value)]="selectedStore">
+          <mat-option>None</mat-option>
+          <mat-option  value="groceryStore.storeId" *ngFor="let groceryStore of stores"> {{ groceryStore.storeBrand }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+</div>

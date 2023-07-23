@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NewTripComponent } from './new-trip/new-trip.component';
 
+// Materials
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatMenuModule} from '@angular/material/menu';
+
+// Custom 
+import { NewTripComponent } from './new-trip/new-trip.component';
 import { PersistentToolbarComponent } from './persistent-toolbar/persistent-toolbar.component';
 
-import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

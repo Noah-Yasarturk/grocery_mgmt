@@ -1,10 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GroceryStore } from '../grocery-store';
 
 @Component({
   selector: 'app-new-trip',
   templateUrl: './new-trip.component.html',
-  styleUrls: ['./new-trip.component.scss']
+  styleUrls: ['./new-trip.component.scss'],
 })
-export class NewTripComponent {
+export class NewTripComponent implements OnInit {
+
+  defStore = new GroceryStore(1, 'Publix', 'Buckhead Village'); // Default option
+  stores: GroceryStore[] = []
+  selectedStore = this.defStore
+
+  ngOnInit(): void {
+    // TODO: Pull the top Grocery store options 
+    var s2 = new GroceryStore(2, 'Kroger', 'Lindbergh')
+    var s3 = new GroceryStore(3, 'Trader Joe\'s', 'Buckhead Village')
+
+
+    this.stores = [
+      this.defStore,
+      s2,
+      s3
+    ]
+  }
+
+  
 
 }
