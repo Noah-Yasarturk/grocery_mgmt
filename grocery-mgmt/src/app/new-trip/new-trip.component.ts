@@ -25,6 +25,16 @@ export class NewTripComponent implements OnInit {
     ]
   }
 
-  
+  fileName = '';
 
+  onFileSelected(event: any) {
+    // From https://blog.angular-university.io/angular-file-upload/
+    // TODO: filter on valid file types
+    const file:File = event.target.files[0];
+    if (file) {
+        this.fileName = file.name;
+        const formData = new FormData();
+        formData.append("thumbnail", file);
+    }
+  }
 }
