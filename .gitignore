@@ -1,5 +1,6 @@
 pyenv
 .idea
+.vscode
 
 # Sensitive
-quick_commands.ps1
+quick_commands.py
