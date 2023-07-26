@@ -1,2 +1,7 @@
 # grocery_mgmt
-This app will use AWS Lambda back-end and Angular front-end to allow for the analysis of grocery trips to understand the cost of cooking at home
+This will enable grocery spending tracking & analysis
+
+Stack:
+- Front-end: Angular in `grocery-mgmt/`
+- Back-end: Python FastAPI in `api/`
+- DB: SQL Server Express  

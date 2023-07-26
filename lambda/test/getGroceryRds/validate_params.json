@@ -1,5 +1,0 @@
-{
-    
-    "something_thats-not_query": "as_a_key",
-    "query": "SELECT * FROM Table"
-}
