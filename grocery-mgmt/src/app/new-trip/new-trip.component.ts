@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GroceryStore } from '../grocery-store';
+import { GroceryStore } from '../models/grocery-store';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-new-trip',
@@ -7,34 +8,33 @@ import { GroceryStore } from '../grocery-store';
   styleUrls: ['./new-trip.component.scss'],
 })
 export class NewTripComponent implements OnInit {
-  
-  ngOnInit(): void {
-    this.getStores()
-  }
 
-
-  // Store dropdown
   defStore = new GroceryStore(1, 'Publix', 'Buckhead Village'); // Default option
   selectedStore = this.defStore
-  stores: GroceryStore[] = []
-  /**
-   * Populate the dropdown from the stored grocery stores
-   */
-  getStores() {
-     // TODO: implement
-     var s2 = new GroceryStore(2, 'Kroger', 'Lindbergh')
-     var s3 = new GroceryStore(3, 'Trader Joe\'s', 'Buckhead Village')
-     this.stores = [ this.defStore, s2, s3 ]
+  recentlyVisitedStores: GroceryStore[] = []
+  receiptFileName = '';
+  tripTotal: number = 0;
+  mealQuery: string = ''; // TODO: implement 
+  providedStoreName: string = ''
+  providedStoreLocation: string = ''
+  enableNewStoreEntryBox = false
+
+  ngOnInit(): void {
+    this.recentlyVisitedStores = this.storeService.getFiveRecentlyVisitedStores()
+  }
+
+  constructor(private storeService: StoreService) {}
+
+  addAndUseNewStore() {
+    this.selectedStore = this.storeService.createNewStore(this.providedStoreName, this.providedStoreLocation)
+  }
+
+  toggleNewStoreEntry() {
+    console.log("toggleNewStoreEntry button clicked");
+    this.enableNewStoreEntryBox = true
   }
 
 
-  // Receipt file upload
-  receiptFileName = '';
-
-  /**
-   * TODO: implement
-   * @param event 
-   */
   receiptFileSelected(event: any) {
     // From https://blog.angular-university.io/angular-file-upload/
     // TODO: filter on valid file types
@@ -45,13 +45,5 @@ export class NewTripComponent implements OnInit {
         formData.append("thumbnail", file);
     }
   }
-
-
-  // Trip total 
-  tripTotal: number = 0; // TODO: implement 
-
-
-  // Adding meals
-  mealQuery: string = ''; // TODO: implement 
 
 }
