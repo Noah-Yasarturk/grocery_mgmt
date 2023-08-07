@@ -8,9 +8,9 @@ public class Store {
     private String storeName;
     private String location; 
 
-    Store() {}
+    public Store() {}
     
-    Store(String storeName, String location) {
+    public Store(String storeName, String location) {
         this.storeName = storeName;
         this.location = location;
     }
