@@ -3,36 +3,39 @@
 
     <!-- Select existing store or TODO: new -->
     <div id="store-select-section" class="storeSelectionsSection">
-        <mat-form-field id="store-select-dropdown-form">
-            <mat-label>Select Store</mat-label>
-    
-            <mat-select>
-              <!-- Select existing store from recently visited -->
-              <mat-option  value="selectedStore.storeBrand" *ngFor="let groceryStore of recentlyVisitedStores"> {{ groceryStore.storeBrand }}</mat-option>
-              <!-- Create new store -->
-              <mat-option  value="selectedStore.storeBrand" > 
-                    <button class="addOptionOnBottom" (click)="openNewStoreDialog()" *ngIf="!showProvidedStoreBrand">
-                        {{ selectedStore.storeBrand }} 
-                        <mat-icon>add</mat-icon>
-                        <span>New Store</span>
-                    </button>
-                  
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+
+        <!-- Select a store -->
+        <div id="selectOrCreateStoreSect" *ngIf="!storeSelected">
+            <mat-form-field id="store-select-dropdown-form" >
+                <mat-label>Select Store</mat-label>
+                <mat-select (selectionChange)="storeSelectionChanged($event.value)">
+                    <mat-option  [value]="groceryStore" *ngFor="let groceryStore of recentlyVisitedStores"> 
+                        {{ groceryStore.storeBrand }} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Create store -->
+            <button class="addOptionOnBottom" (click)="openNewStoreDialog()" id="createStoreButton" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+
+        <!-- After store selected -->
+        <div id="heresYourStoreSect" *ngIf="storeSelected" (click)="deselectStore()">
+            {{ selectedStore.storeBrand }} 
+            <mat-icon>close</mat-icon>
+        </div>
     </div>
     
     <!-- Add receipt file for trip TODO: test & implement in TypeScript-->
     <div id="img-upload-section"  class="store-selections-section">
-        <input type="file" class="file-input"
-            (change)="receiptFileSelected($event)" #fileUpload>
+        <input type="file" class="file-input" (change)="receiptFileSelected($event)" #fileUpload>
         
-            {{receiptFileName || "Upload Receipt"}}
+            <span>{{receiptFileName || "Upload Receipt"}}</span>
         
-            <button mat-mini-fab color="primary" class="upload-btn"
-            (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-        </button>
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" id="uploadReceiptButton">
+                <mat-icon>attach_file</mat-icon>
+            </button>
     </div>
 
 

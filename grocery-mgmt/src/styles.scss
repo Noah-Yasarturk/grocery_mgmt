@@ -3,6 +3,16 @@
 html, body { height: 100%; width: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; height: 100%; width: 100%}
 
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+router-outlet {
+    height: 100vh;
+}
+
 .addOptionOnBottom {
     display: flex;
     background: white;
@@ -18,3 +28,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; height: 100
 .addOptionOnBottom mat-icon {
    justify-self: center;
 }
+
+// .mat-mdc-form-field-bottom-align {
+//     // display: none // Remove hints below mat-form-field select box
+// }

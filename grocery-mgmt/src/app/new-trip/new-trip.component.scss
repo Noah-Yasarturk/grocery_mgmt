@@ -1,8 +1,24 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  --sect-height: 15%; // var(--sect-height)
+}
+
+
 .file-input {
     display: none;
   }
 
-.store-selections-wrapper {
+#selectOrCreateStoreSect {
+  display: flex;
+  align-items: center;
+}
+
+#createStoreButton {
+  padding-bottom: 1.45em;
+  padding-left: 1em
 }
 
 .storeSelectionsSection {
@@ -11,15 +27,56 @@
   align-items: center;
 }
 
-
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#uploadReceiptButton {
+  padding-left: 1.25em;
 
 }
+
 
 .inlineOption {
   display: flex;
   flex-direction: row;
+}
+
+
+#store-select-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#img-upload-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#trip-date-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#trip-total-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-meals-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#proceed-to-receipt-section {
+  height: var(--sect-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

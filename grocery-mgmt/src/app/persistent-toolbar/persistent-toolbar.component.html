@@ -1,24 +1,25 @@
-<div style="display: flex;">
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <h2>Grocery Management</h2>
-    <mat-menu #menu="matMenu">
-      
-      <button  mat-menu-item routerLink="home">
-        <mat-icon fontIcon="roofing"></mat-icon>
-        <span>Home</span>
-      </button>
 
-      <button mat-menu-item routerLink="newTrip">
-        <mat-icon  fontIcon="add_shopping_cart"></mat-icon>
-        <span>New Trip</span>
-      </button>
+  <mat-menu #menu="matMenu">
+    
+    <button  mat-menu-item routerLink="home">
+      <mat-icon fontIcon="roofing"></mat-icon>
+      <span>Home</span>
+    </button>
 
-      <button mat-menu-item routerLink="receiptItemEntry">
-        <mat-icon fontIcon="receipt_long" ></mat-icon>
-        <span>Enter Receipt</span>
-      </button>
+    <button mat-menu-item routerLink="newTrip">
+      <mat-icon  fontIcon="add_shopping_cart"></mat-icon>
+      <span>New Trip</span>
+    </button>
 
-    </mat-menu>
-</div>
+    <button mat-menu-item routerLink="receiptItemEntry">
+      <mat-icon fontIcon="receipt_long" ></mat-icon>
+      <span>Enter Receipt</span>
+    </button>
+
+  </mat-menu>
+
+
+  <span id='menuTitle'>Grocery Management</span>
