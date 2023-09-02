@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { GroceryStore } from '../models/grocery-store';
 import { StoreService } from '../services/store.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-trip',
@@ -9,29 +10,38 @@ import { StoreService } from '../services/store.service';
 })
 export class NewTripComponent implements OnInit {
 
-  defStore = new GroceryStore(1, 'Publix', 'Buckhead Village'); // Default option
-  selectedStore = this.defStore
+  selectedStore: GroceryStore  = new GroceryStore(-1,'','')
   recentlyVisitedStores: GroceryStore[] = []
-  receiptFileName = '';
+  receiptFileName = ''
   tripTotal: number = 0;
-  mealQuery: string = ''; // TODO: implement 
-  providedStoreName: string = ''
-  providedStoreLocation: string = ''
-  enableNewStoreEntryBox = false
+  mealQuery: string = '' // TODO: implement 
+  showProvidedStoreBrand: boolean = false
 
   ngOnInit(): void {
     this.recentlyVisitedStores = this.storeService.getFiveRecentlyVisitedStores()
   }
+  
+  constructor(private storeService: StoreService,  public dialog: MatDialog) { }
 
-  constructor(private storeService: StoreService) {}
-
-  addAndUseNewStore() {
-    this.selectedStore = this.storeService.createNewStore(this.providedStoreName, this.providedStoreLocation)
-  }
-
-  toggleNewStoreEntry() {
-    console.log("toggleNewStoreEntry button clicked");
-    this.enableNewStoreEntryBox = true
+  openNewStoreDialog() {
+    // Open it
+    const dialogRef = this.dialog.open(NewStoreDialog, {
+      data: {
+        storeName: 'dummyVal', 
+        storeLocation: 'dummyVal'
+      },
+    });
+    // Close it
+    dialogRef.afterClosed().subscribe(result  => {
+      console.log("result ", result );
+      if (result['storeBrand']) {
+        this.selectedStore = new GroceryStore(-1, result['storeBrand'], result['storeLocation'])
+      } else {
+        console.log("Dialog closed without data processing");
+        this.showProvidedStoreBrand = false
+      }
+    });
+    
   }
 
 
@@ -46,4 +56,32 @@ export class NewTripComponent implements OnInit {
     }
   }
 
+  
+}
+
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+
+@Component({
+  selector: 'new-store-dialog',
+  templateUrl: 'new-store-dialog.html',
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+})
+export class NewStoreDialog {
+
+  dialogGroceryStore: GroceryStore = new GroceryStore(-1, '', '')
+
+  constructor(
+    public newStoreDialog: MatDialogRef<NewStoreDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: GroceryStore,
+  ) {}
+
+  backOutOfNewStoreDialog(action: string): void {
+    console.log(action);
+    this.newStoreDialog.close(action);
+  }
 }

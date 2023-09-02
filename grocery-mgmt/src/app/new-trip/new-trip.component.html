@@ -2,19 +2,21 @@
 <!-- <div id="store-selections-wrapper"> -->
 
     <!-- Select existing store or TODO: new -->
-    <div id="store-select-section" class="store-selections-section">
+    <div id="store-select-section" class="storeSelectionsSection">
         <mat-form-field id="store-select-dropdown-form">
             <mat-label>Select Store</mat-label>
     
-            <mat-select [(value)]="selectedStore">
+            <mat-select>
               <!-- Select existing store from recently visited -->
-              <mat-option  value="groceryStore.storeId" *ngFor="let groceryStore of recentlyVisitedStores"> {{ groceryStore.storeBrand }}</mat-option>
+              <mat-option  value="selectedStore.storeBrand" *ngFor="let groceryStore of recentlyVisitedStores"> {{ groceryStore.storeBrand }}</mat-option>
               <!-- Create new store -->
-              <mat-option  value="-1" > 
-                    <button class="addOptionOnBottom" (click)="toggleNewStoreEntry()">
+              <mat-option  value="selectedStore.storeBrand" > 
+                    <button class="addOptionOnBottom" (click)="openNewStoreDialog()" *ngIf="!showProvidedStoreBrand">
+                        {{ selectedStore.storeBrand }} 
                         <mat-icon>add</mat-icon>
                         <span>New Store</span>
                     </button>
+                  
               </mat-option>
             </mat-select>
           </mat-form-field>

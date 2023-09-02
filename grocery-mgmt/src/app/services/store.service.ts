@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { GroceryStore } from '../models/grocery-store';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
 
   getFiveRecentlyVisitedStores(): GroceryStore[]  {
@@ -21,9 +24,26 @@ export class StoreService {
     return dummyData;
   }
 
-  createNewStore(storeName: string, storeLocation: string): GroceryStore {
-    let dummyStoreId = 10; // TODO: implement on the backed & get ID of store back - https://stackoverflow.com/questions/6761403/how-to-get-the-next-auto-increment-id-in-mysql 
-    let newStore = new GroceryStore(dummyStoreId, storeName, storeLocation)
-    return newStore;
+  /**
+   * Pass form data and create GroceryStore.
+   * 
+   * @param selectedStore A GroceryStore without a storeId
+   * @returns The storeId generated // TODO: error if store already exists??
+   */
+  createNewStore(selectedStore: GroceryStore): number {
+    const newStoreEndpoint: string = '/store/add'
+    let endpoint = environment.baseUrl + newStoreEndpoint
+    let data = {
+      "storeName": selectedStore.storeBrand,
+      "location": selectedStore.storeLocation
+    }
+    console.log("Posting to endpoint ", endpoint, " with data ", data);
+    let storeGeneratedId = 10 // TODO: implement on the backed & get ID of store back - https://stackoverflow.com/questions/6761403/how-to-get-the-next-auto-increment-id-in-mysql 
+    // this.httpClient.post(endpoint, data).subscribe(resp => {
+    //   console.log("Response: ", resp);
+    //   storeGeneratedId = resp.storeId;
+    // }) 
+    console.log("Store created with ID ", storeGeneratedId);
+    return storeGeneratedId
   }
 }

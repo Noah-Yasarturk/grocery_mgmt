@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+    <p>Provide the new grocery store</p>
+    <mat-form-field>
+        <mat-label>Store Name</mat-label>
+        <input matInput [(ngModel)]="dialogGroceryStore.storeBrand">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Store Location</mat-label>
+        <input matInput [(ngModel)]="dialogGroceryStore.storeLocation">
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="backOutOfNewStoreDialog('No')">Back</button>
+    <button mat-button [mat-dialog-close]="dialogGroceryStore" cdkFocusInitial>Ok</button>
+</div>
