@@ -11,6 +11,10 @@ import com.crumblymum.grocerymgmt.store.Store;
 import com.crumblymum.grocerymgmt.store.service.GroceryMgmtException;
 import com.crumblymum.grocerymgmt.store.service.StoreService;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class StoreController {
 
@@ -34,6 +38,18 @@ public class StoreController {
 		}
 		return dbMessage;
 
+	}
+	@GetMapping("/store/all")
+	public List getAllStores (){
+		List<Store> listOfStores = new ArrayList<Store>();
+		System.out.println("retrieving all stores...");
+
+		try {
+			listOfStores = this.storeService.getAllStores();
+		} catch(GroceryMgmtException e) {
+			e.printStackTrace();
+		}
+		return listOfStores;
 	}
     
 }
