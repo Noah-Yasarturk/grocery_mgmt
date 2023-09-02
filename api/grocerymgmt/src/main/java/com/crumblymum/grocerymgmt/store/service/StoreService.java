@@ -1,6 +1,5 @@
 package com.crumblymum.grocerymgmt.store.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,20 +22,23 @@ public class StoreService {
         String dbMessage = "Could not write Store";
         try {
              dbMessage = this.storeDao.insertStore(store.getStoreName(), store.getLocation());
-        } catch(SQLException e) {
-            e.printStackTrace();
+        } catch(GroceryMgmtException e) {
             throw new GroceryMgmtException(e.getClass().toGenericString(), dbMessage);
         }
         return dbMessage;
     }
 
+    /**
+     * Get full list of stores
+     * @return
+     * @throws GroceryMgmtException
+     */
     public List<Store> getAllStores() throws GroceryMgmtException{
         List<Store> stores = new ArrayList<Store>();
         try {
             stores = this.storeDao.selectAllStores();
-        } catch(SQLException e) {
-            e.printStackTrace();
-            throw new GroceryMgmtException(e.getClass().toGenericString(), "couldn't get stores");
+        } catch(GroceryMgmtException e) {
+            throw new GroceryMgmtException(e.getClass().toGenericString(), "Couldn't get stores using Service due to:\n" + e.getMessage());
         }
         return stores;
     }

@@ -7,16 +7,23 @@ import java.util.Properties;
 
 public class DbAccessUtil {
     
-    public static Connection getConnection() throws SQLException {
-
+    /**
+     * Connect to the database
+     * @return java.sql.Connection
+     * @throws DbConnectionException if unable to connect
+     */
+    public static Connection getConnection() throws DbConnectionException {
         Connection conn = null;
         Properties connectionProps = new Properties();
         connectionProps.put("user", DbConstants.USER);
         connectionProps.put("password", DbConstants.PW);
-
-        conn = DriverManager.getConnection(
-               DbConstants.JDBC_URL, connectionProps);
-        System.out.println("Connected to database");
+        try{
+            conn = DriverManager.getConnection( DbConstants.JDBC_URL, connectionProps);
+            System.out.println("Connected to database");
+        } catch( SQLException e ) {
+            e.printStackTrace();
+            throw new DbConnectionException();
+        }
         return conn;
     }
         

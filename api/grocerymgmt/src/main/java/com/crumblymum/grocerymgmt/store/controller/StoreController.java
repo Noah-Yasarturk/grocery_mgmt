@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crumblymum.grocerymgmt.store.Store;
 import com.crumblymum.grocerymgmt.store.service.GroceryMgmtException;
 import com.crumblymum.grocerymgmt.store.service.StoreService;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +40,7 @@ public class StoreController {
 	@GetMapping("/store/all")
 	public List getAllStores (){
 		List<Store> listOfStores = new ArrayList<Store>();
-		System.out.println("retrieving all stores...");
+		System.out.println("Retrieving all stores...");
 
 		try {
 			listOfStores = this.storeService.getAllStores();
